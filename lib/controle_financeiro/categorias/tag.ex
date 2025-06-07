@@ -13,6 +13,7 @@ defmodule ControleFinanceiro.Categorias.Tag do
 
   @doc false
   def changeset(tag, attrs) do
+
     tag
     |> cast(attrs, [:nome, :id_user, :data_criacao, :data_atualizacao])
     |> validate_required([:nome, :id_user, :data_criacao, :data_atualizacao])

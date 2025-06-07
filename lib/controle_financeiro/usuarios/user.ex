@@ -16,8 +16,17 @@ defmodule ControleFinanceiro.Usuarios.User do
 
   @doc false
   def changeset(user, attrs) do
+
     user
     |> cast(attrs, [:nome, :email, :senha, :data_criacao, :data_atualizacao])
     |> validate_required([:nome, :email, :senha, :data_criacao, :data_atualizacao])
+    |> unique_constraint(:email)
+  # |> put_senha_hash
   end
+
+  # defp put_senha_hash(%Ecto.Changeset{valid?: true, changes: %{hash_senha: hash_senha}} = changeset) do
+  #   change(changeset, hash_senha: BCrypt.hash_pwd_salt(hash_senha))
+  # end
+
+  # defp put_senha_hash(changeset) do: changeset
 end

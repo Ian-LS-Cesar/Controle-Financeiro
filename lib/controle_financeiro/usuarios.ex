@@ -4,6 +4,7 @@ defmodule ControleFinanceiro.Usuarios do
   """
 
   import Ecto.Query, warn: false
+  alias ControleFinanceiro.Usuarios
   alias ControleFinanceiro.Repo
 
   alias ControleFinanceiro.Usuarios.User
@@ -36,6 +37,22 @@ defmodule ControleFinanceiro.Usuarios do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+  Retorna 'nil' se o Usuário não existe.
+
+  ## Examples
+    iex> get_user_by_email(test@gmail.com)
+    %User{}
+
+    iex> get_user_by_email(no_account@gmail.com)
+    nil
+  """
+  def get_user_by_email(email) do
+    User
+    |> where(email: ^email)
+    |> Repo.one()
+  end
 
   @doc """
   Creates a user.

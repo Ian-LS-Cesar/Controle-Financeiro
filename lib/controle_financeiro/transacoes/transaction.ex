@@ -16,6 +16,7 @@ defmodule ControleFinanceiro.Transacoes.Transaction do
 
   @doc false
   def changeset(transaction, attrs) do
+
     transaction
     |> cast(attrs, [:descricao, :valor, :tipo, :data, :id_user, :data_criacao, :data_atualizacao])
     |> validate_required([:descricao, :valor, :tipo, :data, :id_user, :data_criacao, :data_atualizacao])
