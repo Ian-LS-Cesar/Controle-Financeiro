@@ -4,9 +4,7 @@ defmodule ControleFinanceiro.Usuarios do
   """
 
   import Ecto.Query, warn: false
-  alias ControleFinanceiro.Usuarios
   alias ControleFinanceiro.Repo
-
   alias ControleFinanceiro.Usuarios.User
 
   @doc """
