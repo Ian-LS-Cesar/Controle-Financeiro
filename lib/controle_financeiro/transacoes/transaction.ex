@@ -7,10 +7,10 @@ defmodule ControleFinanceiro.Transacoes.Transaction do
     field :descricao, :string
     field :valor, :decimal
     field :tipo, Ecto.Enum, values: [:"0", :"1"]
-    field :id_user, :integer
     field :data_criacao, :utc_datetime
     field :data_atualizacao, :utc_datetime
 
+    belongs_to :user, ControleFinanceiro.Usuarios.User, foreign_key: :id_user
     timestamps(type: :utc_datetime)
   end
 

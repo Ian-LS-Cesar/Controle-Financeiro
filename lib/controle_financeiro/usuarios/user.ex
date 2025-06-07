@@ -9,6 +9,8 @@ defmodule ControleFinanceiro.Usuarios.User do
     field :data_criacao, :utc_datetime
     field :data_atualizacao, :utc_datetime
 
+    has_many :transactions, ControleFinanceiro.Usuarios.User, foreign_key: :id_user
+    has_many :tags, ControleFinanceiro.Usuarios.User, foreign_key: :id_user
     timestamps(type: :utc_datetime)
   end
 

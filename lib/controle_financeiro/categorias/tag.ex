@@ -4,10 +4,10 @@ defmodule ControleFinanceiro.Categorias.Tag do
 
   schema "tags" do
     field :nome, :string
-    field :id_user, :integer
     field :data_criacao, :utc_datetime
     field :data_atualizacao, :utc_datetime
 
+    belongs_to :user, ControleFinanceiro.Usuarios.User, foreign_key: :id_user
     timestamps(type: :utc_datetime)
   end
 
