@@ -39,7 +39,7 @@ defmodule ControleFinanceiro.Usuarios.User do
   end
 
   defp put_senha_hash(%Ecto.Changeset{valid?: true, changes: %{hash_senha: hash_senha}} = changeset) do
-    change(changeset, hash_senha: BCrypt.hash_pwd_salt(hash_senha))
+    change(changeset, hash_senha: Bcrypt.hash_pwd_salt(hash_senha))
   end
 
   defp put_senha_hash(changeset), do: changeset

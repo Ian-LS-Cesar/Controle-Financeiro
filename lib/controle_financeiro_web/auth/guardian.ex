@@ -22,20 +22,20 @@ defmodule ControleFinanceiroWeb.Auth.Guardian do
     {:error, :no_id_provided}
   end
 
-  def authenticate(email, _senha) do
+  def authenticate(email, senha) do
     case Usuarios.get_user_by_email(email) do
       nil -> {:error, :unauthorized}
-      user -> create_token(user)
-        # case validate_senha(senha, user.hash_senha) do
-        #   true ->
-        #   false -> {:error, :unauthorized}
-        # end
+      user ->
+        case validate_senha(senha, user.hash_senha) do
+          true -> create_token(user)
+          false -> {:error, :unauthorized}
+        end
     end
   end
 
-  # defp validate_senha(senha, hash_senha) do
-  #   BCrypt.verify_pass(senha, hash_senha)
-  # end
+  defp validate_senha(senha, hash_senha) do
+    Bcrypt.verify_pass(senha, hash_senha)
+  end
 
   defp create_token(user) do
     {:ok, token, _claims} = encode_and_sign(user)
