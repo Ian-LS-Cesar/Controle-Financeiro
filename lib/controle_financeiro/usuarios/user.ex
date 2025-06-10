@@ -35,7 +35,7 @@ defmodule ControleFinanceiro.Usuarios.User do
     |> cast(attrs, [:nome, :email, :senha, :data_criacao, :data_atualizacao])
     |> validate_required([:nome, :email, :senha, :data_criacao, :data_atualizacao])
     |> unique_constraint(:email)
-    |> put_senha_hash
+    |> put_senha_hash()
   end
 
   defp put_senha_hash(%Ecto.Changeset{valid?: true, changes: %{hash_senha: hash_senha}} = changeset) do
