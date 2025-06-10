@@ -23,4 +23,18 @@ defmodule ControleFinanceiro.TransacoesFixtures do
 
     transaction
   end
+
+  @doc """
+  Generate a transactions_tag.
+  """
+  def transactions_tag_fixture(attrs \\ %{}) do
+    {:ok, transactions_tag} =
+      attrs
+      |> Enum.into(%{
+
+      })
+      |> ControleFinanceiro.Transacoes.create_transactions_tag()
+
+    transactions_tag
+  end
 end

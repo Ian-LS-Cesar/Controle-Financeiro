@@ -101,4 +101,100 @@ defmodule ControleFinanceiro.Transacoes do
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
   end
+
+  alias ControleFinanceiro.Transacoes.TransactionsTag
+
+  @doc """
+  Returns the list of transactions_tags.
+
+  ## Examples
+
+      iex> list_transactions_tags()
+      [%TransactionsTag{}, ...]
+
+  """
+  def list_transactions_tags do
+    Repo.all(TransactionsTag)
+  end
+
+  @doc """
+  Gets a single transactions_tag.
+
+  Raises `Ecto.NoResultsError` if the Transactions tag does not exist.
+
+  ## Examples
+
+      iex> get_transactions_tag!(123)
+      %TransactionsTag{}
+
+      iex> get_transactions_tag!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_transactions_tag!(id), do: Repo.get!(TransactionsTag, id)
+
+  @doc """
+  Creates a transactions_tag.
+
+  ## Examples
+
+      iex> create_transactions_tag(%{field: value})
+      {:ok, %TransactionsTag{}}
+
+      iex> create_transactions_tag(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_transactions_tag(attrs \\ %{}) do
+    %TransactionsTag{}
+    |> TransactionsTag.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a transactions_tag.
+
+  ## Examples
+
+      iex> update_transactions_tag(transactions_tag, %{field: new_value})
+      {:ok, %TransactionsTag{}}
+
+      iex> update_transactions_tag(transactions_tag, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_transactions_tag(%TransactionsTag{} = transactions_tag, attrs) do
+    transactions_tag
+    |> TransactionsTag.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a transactions_tag.
+
+  ## Examples
+
+      iex> delete_transactions_tag(transactions_tag)
+      {:ok, %TransactionsTag{}}
+
+      iex> delete_transactions_tag(transactions_tag)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_transactions_tag(%TransactionsTag{} = transactions_tag) do
+    Repo.delete(transactions_tag)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking transactions_tag changes.
+
+  ## Examples
+
+      iex> change_transactions_tag(transactions_tag)
+      %Ecto.Changeset{data: %TransactionsTag{}}
+
+  """
+  def change_transactions_tag(%TransactionsTag{} = transactions_tag, attrs \\ %{}) do
+    TransactionsTag.changeset(transactions_tag, attrs)
+  end
 end

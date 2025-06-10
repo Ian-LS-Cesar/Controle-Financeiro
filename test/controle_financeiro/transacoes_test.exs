@@ -68,4 +68,56 @@ defmodule ControleFinanceiro.TransacoesTest do
       assert %Ecto.Changeset{} = Transacoes.change_transaction(transaction)
     end
   end
+
+  describe "transactions_tags" do
+    alias ControleFinanceiro.Transacoes.TransactionsTag
+
+    import ControleFinanceiro.TransacoesFixtures
+
+    @invalid_attrs %{}
+
+    test "list_transactions_tags/0 returns all transactions_tags" do
+      transactions_tag = transactions_tag_fixture()
+      assert Transacoes.list_transactions_tags() == [transactions_tag]
+    end
+
+    test "get_transactions_tag!/1 returns the transactions_tag with given id" do
+      transactions_tag = transactions_tag_fixture()
+      assert Transacoes.get_transactions_tag!(transactions_tag.id) == transactions_tag
+    end
+
+    test "create_transactions_tag/1 with valid data creates a transactions_tag" do
+      valid_attrs = %{}
+
+      assert {:ok, %TransactionsTag{} = transactions_tag} = Transacoes.create_transactions_tag(valid_attrs)
+    end
+
+    test "create_transactions_tag/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Transacoes.create_transactions_tag(@invalid_attrs)
+    end
+
+    test "update_transactions_tag/2 with valid data updates the transactions_tag" do
+      transactions_tag = transactions_tag_fixture()
+      update_attrs = %{}
+
+      assert {:ok, %TransactionsTag{} = transactions_tag} = Transacoes.update_transactions_tag(transactions_tag, update_attrs)
+    end
+
+    test "update_transactions_tag/2 with invalid data returns error changeset" do
+      transactions_tag = transactions_tag_fixture()
+      assert {:error, %Ecto.Changeset{}} = Transacoes.update_transactions_tag(transactions_tag, @invalid_attrs)
+      assert transactions_tag == Transacoes.get_transactions_tag!(transactions_tag.id)
+    end
+
+    test "delete_transactions_tag/1 deletes the transactions_tag" do
+      transactions_tag = transactions_tag_fixture()
+      assert {:ok, %TransactionsTag{}} = Transacoes.delete_transactions_tag(transactions_tag)
+      assert_raise Ecto.NoResultsError, fn -> Transacoes.get_transactions_tag!(transactions_tag.id) end
+    end
+
+    test "change_transactions_tag/1 returns a transactions_tag changeset" do
+      transactions_tag = transactions_tag_fixture()
+      assert %Ecto.Changeset{} = Transacoes.change_transactions_tag(transactions_tag)
+    end
+  end
 end
