@@ -20,8 +20,8 @@ defmodule ControleFinanceiroWeb.TagJSON do
       id: tag.id,
       nome: tag.nome,
       id_user: tag.id_user,
-      data_criacao: tag.data_criacao,
-      data_atualizacao: tag.data_atualizacao
+      data_criacao: tag.inserted_at,
+      data_atualizacao: tag.updated_at
     }
   end
 end

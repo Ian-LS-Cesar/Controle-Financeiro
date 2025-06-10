@@ -23,8 +23,8 @@ defmodule ControleFinanceiroWeb.TransactionJSON do
       tipo: transaction.tipo,
       data: transaction.data,
       id_user: transaction.id_user,
-      data_criacao: transaction.data_criacao,
-      data_atualizacao: transaction.data_atualizacao
+      data_criacao: transaction.inserted_at,
+      data_atualizacao: transaction.updated_at
     }
   end
 end

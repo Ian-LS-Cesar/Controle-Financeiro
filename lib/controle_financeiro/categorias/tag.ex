@@ -4,8 +4,6 @@ defmodule ControleFinanceiro.Categorias.Tag do
 
   schema "tags" do
     field :nome, :string
-    field :data_criacao, :utc_datetime
-    field :data_atualizacao, :utc_datetime
 
     belongs_to :user, ControleFinanceiro.Usuarios.User, foreign_key: :id_user
 
@@ -19,21 +17,7 @@ defmodule ControleFinanceiro.Categorias.Tag do
   @doc false
   def changeset(tag, attrs) do
     tag
-    |> cast(attrs, [:nome, :id_user, :data_criacao, :data_atualizacao])
+    |> cast(attrs, [:nome, :id_user])
     |> validate_required([:nome, :id_user])
-    |> put_data_criacao()
-    |> put_data_atualizacao()
-  end
-
-  defp put_data_criacao(%Ecto.Changeset{data: %{id: nil}} = changeset) do
-    now = DateTime.utc_now() |> DateTime.truncate(:second)
-    put_change(changeset, :data_criacao, now)
-  end
-
-  defp put_data_criacao(changeset), do: changeset
-
-  defp put_data_atualizacao(changeset) do
-    now = DateTime.utc_now() |> DateTime.truncate(:second)
-    put_change(changeset, :data_atualizacao, now)
   end
 end

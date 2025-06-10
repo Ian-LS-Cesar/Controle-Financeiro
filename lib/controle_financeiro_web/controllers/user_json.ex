@@ -21,8 +21,8 @@ defmodule ControleFinanceiroWeb.UserJSON do
       nome: user.nome,
       email: user.email,
       senha: user.senha,
-      data_criacao: user.data_criacao,
-      data_atualizacao: user.data_atualizacao
+      data_criacao: user.inserted_at,
+      data_atualizacao: user.updated_at
     }
   end
 
