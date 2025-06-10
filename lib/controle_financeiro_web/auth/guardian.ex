@@ -26,7 +26,7 @@ defmodule ControleFinanceiroWeb.Auth.Guardian do
     case Usuarios.get_user_by_email(email) do
       nil -> {:error, :unauthorized}
       user ->
-        case validate_senha(senha, user.hash_senha) do
+        case validate_senha(senha, user.senha) do
           true -> create_token(user)
           false -> {:error, :unauthorized}
         end

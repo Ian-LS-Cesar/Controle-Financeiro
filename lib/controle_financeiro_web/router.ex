@@ -22,6 +22,7 @@ defmodule ControleFinanceiroWeb.Router do
 
   scope "/api", ControleFinanceiroWeb do
    pipe_through :api
+   post "/auth/login", AuthController, :login
    resources "/users", UserController, except: [:new, :edit]
    resources "/transactions", TransactionController, except: [:new, :edit]
    resources "/tags", TagController, except: [:new, :edit]
