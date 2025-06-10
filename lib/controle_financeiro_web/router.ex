@@ -14,6 +14,10 @@ defmodule ControleFinanceiroWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug ControleFinanceiroWeb.Auth.Pipeline
+    plug Guardian.Plug.EnsureAuthenticated
+  end
   scope "/", ControleFinanceiroWeb do
     pipe_through :browser
 
@@ -21,12 +25,16 @@ defmodule ControleFinanceiroWeb.Router do
   end
 
   scope "/api", ControleFinanceiroWeb do
-   pipe_through :api
-   post "/auth/login", AuthController, :login
+   pipe_through [:api, :auth]
    resources "/users", UserController, except: [:new, :edit]
    resources "/transactions", TransactionController, except: [:new, :edit]
    resources "/tags", TagController, except: [:new, :edit]
    resources "/transactions_tags", TransactionsTagController, except: [:new, :edit]
+  end
+
+  scope "/api", ControleFinanceiroWeb do
+    pipe_through :api
+    post "/auth/login", AuthController, :login
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
