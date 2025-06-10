@@ -15,10 +15,9 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> list_transactions()
       [%Transaction{}, ...]
-
   """
   def list_transactions do
-    Repo.all(Transaction)
+    Repo.all(Transaction) |> Repo.preload(:tags)
   end
 
   @doc """
@@ -33,9 +32,12 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> get_transaction!(456)
       ** (Ecto.NoResultsError)
-
   """
-  def get_transaction!(id), do: Repo.get!(Transaction, id)
+  def get_transaction!(id) do
+    ControleFinanceiro.Transacoes.Transaction
+    |> ControleFinanceiro.Repo.get!(id)
+    |> ControleFinanceiro.Repo.preload(:tags)
+  end
 
   @doc """
   Creates a transaction.
@@ -47,11 +49,14 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> create_transaction(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def create_transaction(attrs \\ %{}) do
+    tag_ids = Map.get(attrs, "tags", [])
+    tags = Repo.all(from t in ControleFinanceiro.Categorias.Tag, where: t.id in ^tag_ids)
+
     %Transaction{}
     |> Transaction.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:tags, tags)
     |> Repo.insert()
   end
 
@@ -65,7 +70,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> update_transaction(transaction, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def update_transaction(%Transaction{} = transaction, attrs) do
     transaction
@@ -83,7 +87,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> delete_transaction(transaction)
       {:error, %Ecto.Changeset{}}
-
   """
   def delete_transaction(%Transaction{} = transaction) do
     Repo.delete(transaction)
@@ -96,7 +99,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> change_transaction(transaction)
       %Ecto.Changeset{data: %Transaction{}}
-
   """
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
@@ -111,7 +113,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> list_transactions_tags()
       [%TransactionsTag{}, ...]
-
   """
   def list_transactions_tags do
     Repo.all(TransactionsTag)
@@ -129,7 +130,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> get_transactions_tag!(456)
       ** (Ecto.NoResultsError)
-
   """
   def get_transactions_tag!(id), do: Repo.get!(TransactionsTag, id)
 
@@ -143,7 +143,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> create_transactions_tag(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def create_transactions_tag(attrs \\ %{}) do
     %TransactionsTag{}
@@ -161,7 +160,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> update_transactions_tag(transactions_tag, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def update_transactions_tag(%TransactionsTag{} = transactions_tag, attrs) do
     transactions_tag
@@ -179,7 +177,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> delete_transactions_tag(transactions_tag)
       {:error, %Ecto.Changeset{}}
-
   """
   def delete_transactions_tag(%TransactionsTag{} = transactions_tag) do
     Repo.delete(transactions_tag)
@@ -192,7 +189,6 @@ defmodule ControleFinanceiro.Transacoes do
 
       iex> change_transactions_tag(transactions_tag)
       %Ecto.Changeset{data: %TransactionsTag{}}
-
   """
   def change_transactions_tag(%TransactionsTag{} = transactions_tag, attrs \\ %{}) do
     TransactionsTag.changeset(transactions_tag, attrs)

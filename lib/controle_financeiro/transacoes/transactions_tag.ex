@@ -3,7 +3,6 @@ defmodule ControleFinanceiro.Transacoes.TransactionsTag do
   import Ecto.Changeset
 
   schema "transactions_tags" do
-
     field :id_transaction, :id
     field :id_tag, :id
 

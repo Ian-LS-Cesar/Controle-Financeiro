@@ -25,4 +25,30 @@ defmodule ControleFinanceiroWeb.UserJSON do
       data_atualizacao: user.data_atualizacao
     }
   end
+
+  def transactions(%{transactions: transactions}) do
+    %{transactions: Enum.map(transactions, &transaction_json/1)}
+  end
+
+  defp transaction_json(transaction) do
+    %{
+      id: transaction.id,
+      descricao: transaction.descricao,
+      valor: transaction.valor,
+      tipo: transaction.tipo,
+      data: transaction.data,
+      tags: Enum.map(transaction.tags || [], &tag_json/1)
+    }
+  end
+
+  def tags(%{tags: tags}) do
+    %{tags: Enum.map(tags, &tag_json/1)}
+  end
+
+  defp tag_json(tag) do
+    %{
+      id: tag.id,
+      nome: tag.nome
+    }
+  end
 end

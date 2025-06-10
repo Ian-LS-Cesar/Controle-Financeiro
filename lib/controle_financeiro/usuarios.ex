@@ -34,7 +34,10 @@ defmodule ControleFinanceiro.Usuarios do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    Repo.get!(User, id)
+    |> Repo.preload(transactions: :tags)
+  end
 
   @doc """
   Retorna 'nil' se o Usuário não existe.
@@ -50,6 +53,10 @@ defmodule ControleFinanceiro.Usuarios do
     User
     |> where(email: ^email)
     |> Repo.one()
+    |> case do
+      nil -> nil
+      user -> Repo.preload(user, transactions: :tags)
+    end
   end
 
   @doc """

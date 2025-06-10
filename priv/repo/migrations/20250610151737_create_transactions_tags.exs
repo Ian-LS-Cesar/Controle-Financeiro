@@ -5,7 +5,7 @@ defmodule ControleFinanceiro.Repo.Migrations.CreateTransactionsTags do
     create table(:transactions_tags) do
       add :id_transaction, references(:transactions, on_delete: :nothing)
       add :id_tag, references(:tags, on_delete: :nothing)
-
+      
       timestamps(type: :utc_datetime)
     end
 

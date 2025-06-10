@@ -40,4 +40,16 @@ defmodule ControleFinanceiroWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def transactions(conn, %{"user_id" => user_id}) do
+    user = Usuarios.get_user!(user_id)
+    transactions = ControleFinanceiro.Repo.preload(user, :transactions).transactions
+    render(conn, "transactions.json", transactions: transactions)
+  end
+
+  def tags(conn, %{"user_id" => user_id}) do
+    user = Usuarios.get_user!(user_id)
+    tags = ControleFinanceiro.Repo.preload(user, :tags).tags
+    render(conn, "tags.json", tags: tags)
+  end
 end
