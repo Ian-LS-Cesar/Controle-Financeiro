@@ -25,19 +25,20 @@ defmodule ControleFinanceiroWeb.Router do
   end
 
   scope "/api", ControleFinanceiroWeb do
-   pipe_through [:api, :auth]
-   resources "/users", UserController, except: [:new, :edit] do
-     get "/transactions", UserController, :transactions
-     get "/tags", UserController, :tags
-   end
-   resources "/transactions", TransactionController, except: [:new, :edit]
-   resources "/tags", TagController, except: [:new, :edit]
-   resources "/transactions_tags", TransactionsTagController, except: [:new, :edit]
+    pipe_through :api
+    post "/auth/login", AuthController, :login
+    post "/users", UserController, :create  # <-- Torna o cadastro público
   end
 
   scope "/api", ControleFinanceiroWeb do
-    pipe_through :api
-    post "/auth/login", AuthController, :login
+    pipe_through [:api, :auth]
+    resources "/users", UserController, except: [:new, :edit, :create] do
+      get "/transactions", UserController, :transactions
+      get "/tags", UserController, :tags
+    end
+    resources "/transactions", TransactionController, except: [:new, :edit]
+    resources "/tags", TagController, except: [:new, :edit]
+    resources "/transactions_tags", TransactionsTagController, except: [:new, :edit]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
