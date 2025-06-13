@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "scripts": {
+    "watch": "esbuild js/App.jsx --bundle --target=es2017 --outdir=../priv/static/assets --loader:.jsx=jsx --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.5"
+  }
+}
