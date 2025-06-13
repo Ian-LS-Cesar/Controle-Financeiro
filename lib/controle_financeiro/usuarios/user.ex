@@ -15,7 +15,7 @@ defmodule ControleFinanceiro.Usuarios.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:nome, :email, :senha, :data_criacao, :data_atualizacao])
+    |> cast(attrs, [:nome, :email, :senha])
     |> validate_required([:nome, :email, :senha])
     |> unique_constraint(:email)
     |> put_senha_hash()
