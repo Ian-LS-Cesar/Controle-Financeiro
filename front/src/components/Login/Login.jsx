@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 const Login = () => {
   // a primeira le a segunda altera 
-  const[username,setUsername] = useState("");
-  const[password, setPassword] = useState("");
+  const[email,setUsername] = useState("");
+  const[senha, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const resp = await fetch("http://localhost:4000/api/auth/login", {
+    const resp = await fetch("http://localhost:4000/api//auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: username, password }),
+      body: JSON.stringify({ email, senha }),
     });
     if (resp.ok) {
       const data = await resp.json();
@@ -59,6 +59,9 @@ const Login = () => {
             {/*</Link */}
 
         </form>
+      {localStorage.getItem("token") && (
+        <p>Seu token: {localStorage.getItem("token")}</p>
+      )}
     </div>
   )
 }

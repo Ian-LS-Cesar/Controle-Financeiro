@@ -5,15 +5,26 @@ import "./Cadastro.css";
 
 const Cadastro = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [nome, setName] = useState("");
+  const [email, setUsername] = useState("");
+  const [senha, setPassword] = useState("");
 
   const handleCadastro = async (event) => {
-    event.preventDefault();
-    alert("enviando dados:" + name + username + password);
+  event.preventDefault();
+  const resp = await fetch("http://localhost:4000/api/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user: { nome, email, senha } }),
+  });
+  if (resp.ok) {
+    alert("Cadastro realizado!");
     navigate("/Login");
+  } else {
+    const error = await resp.text();
+    console.log("Erro do backend:", error);
+    alert("Erro ao cadastrar!");
   }
+}
 
   return (
     <div className='container'>  

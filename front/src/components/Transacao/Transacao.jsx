@@ -13,10 +13,22 @@ export default function Transacao() {
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]);
 
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!token || !userId) {
       navigate("/"); // redireciona para login se não autenticado
+      return;
     }
+    fetch(`http://localhost:4000/api/users/${userId}`, {
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        // faça algo com os dados, se necessário
+        // console.log(data);
+      });
   }, [token, userId, navigate]);
 
   // Carrega categorias ao montar o componente
