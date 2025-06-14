@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Transacao() {
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
   const [categorias, setCategorias] = useState([]);
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState("");
@@ -9,13 +12,36 @@ export default function Transacao() {
   const [novaCategoria, setNovaCategoria] = useState("");
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token || !userId) {
+      navigate("/"); // redireciona para login se não autenticado
+      return;
+    }
+    fetch(`http://localhost:4000/api/users/${userId}`, {
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        // faça algo com os dados, se necessário
+        // console.log(data);
+      });
+  }, [token, userId, navigate]);
+
   // Carrega categorias ao montar o componente
   useEffect(() => {
     carregarCategorias();
   }, []);
 
   async function carregarCategorias() {
-    const resp = await fetch("http://localhost:4000/api/users/1/tags");
+    const resp = await fetch(`http://localhost:4000/api/users/${userId}/tags`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
     if (resp.ok) {
       const data = await resp.json();
       setCategorias(data);
@@ -27,8 +53,11 @@ export default function Transacao() {
     if (!novaCategoria.trim()) return alert("Digite o nome da categoria!");
     const resp = await fetch("http://localhost:4000/api/tags", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tag: { nome: novaCategoria, id_user: 1 } }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ tag: { nome: novaCategoria, id_user: Number(userId) } }),
     });
     if (resp.ok) {
       setNovaCategoria("");
@@ -46,15 +75,19 @@ export default function Transacao() {
         valor,
         tipo,
         data,
-        id_user: 1,
+        id_user: Number(userId),
         tags: categoriasSelecionadas.map(Number),
       },
     };
     const resp = await fetch("http://localhost:4000/api/transacoes", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
       body: JSON.stringify(body),
     });
+    
     if (resp.ok) {
       alert("Transação cadastrada com sucesso!");
       setDescricao("");
