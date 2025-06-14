@@ -58,22 +58,6 @@ const Login = () => {
             </div>
 
         </form>
-        {localStorage.getItem("token") && (
-          <div style={{
-            background: "#222",
-            color: "#fff",
-            padding: "16px",
-            borderRadius: "8px",
-            marginTop: "24px",
-            wordBreak: "break-all",
-            fontFamily: "monospace",
-            fontSize: "0.95em",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
-          }}>
-            <strong>Seu token JWT:</strong>
-            <div style={{marginTop: "8px"}}>{localStorage.getItem("token")}</div>
-          </div>
-        )}
     </div>
   )
 }
