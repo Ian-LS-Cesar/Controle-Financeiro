@@ -3,15 +3,18 @@ import {FaUser, FaLock} from 'react-icons/fa';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import App from '../../App';
 const Login = () => {
   // a primeira le a segunda altera 
   const[email,setUsername] = useState("");
   const[senha, setPassword] = useState("");
+  const [userId, setUserId] = useState(null);
+  const [tokenUser, setTokenUser] = useState("")
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const resp = await fetch("http://localhost:4000/api//auth/login", {
+    const resp = await fetch("http://localhost:4000/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, senha }),
@@ -45,18 +48,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}/>
               <FaLock className= "icon"/>
             </div>    
-
-            {/* <div className='recall-forget'>
-              <label>
-                  <input type="checkbox"/>
-                  lembre de mim
-              </label>
-              <a href="#">Esqueceu a senha?</a>
-            </div> */}
-
             <button>Entrar</button>   
-
-            {/*</Link */}
 
         </form>
       {localStorage.getItem("token") && (

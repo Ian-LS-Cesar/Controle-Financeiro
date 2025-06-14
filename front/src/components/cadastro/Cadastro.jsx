@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock } from "react-icons/fa";
 import "./Cadastro.css";
-
+import { Link } from 'react-router-dom';
 const Cadastro = () => {
+
   const navigate = useNavigate();
   const [nome, setName] = useState("");
   const [email, setUsername] = useState("");
@@ -18,7 +19,7 @@ const Cadastro = () => {
   });
   if (resp.ok) {
     alert("Cadastro realizado!");
-    navigate("/Login");
+    navigate("/login");
   } else {
     const error = await resp.text();
     console.log("Erro do backend:", error);
@@ -36,20 +37,30 @@ const Cadastro = () => {
             onChange={(e) => setName(e.target.value)}/>
           <FaUser className="icon"/>
         </div>
+        
         <div className='input-field'> 
           <input type="email" placeholder='Email'
             required
             onChange={(e) => setUsername(e.target.value)}/>
           <FaUser className="icon"/>
         </div>
+
         <div className='input-field'> 
           <input type="password" placeholder='Senha'
             required
             onChange={(e) => setPassword(e.target.value)}/>
           <FaLock className="icon"/>
         </div>
-        <button type="submit">Cadastrar</button>   
+        
+        <button type="submit">Cadastrar</button> 
+
+         {/* <button  type="submit">Ja tenho cadastro</button>   */}
+          {/* <div >
+            <a onClick={() => <Link to="/Login"/>} href="">Já tenho conta</a>
+
+          </div>  */}
       </form>
+
     </div>
   )
 }

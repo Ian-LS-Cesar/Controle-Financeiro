@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Transacao.css";
 
 export default function Transacao() {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  console.log("userId do localStorage:", localStorage.getItem("userId"));
   const [categorias, setCategorias] = useState([]);
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState("");
@@ -36,6 +38,7 @@ export default function Transacao() {
     carregarCategorias();
   }, []);
 
+
   async function carregarCategorias() {
     const resp = await fetch(`http://localhost:4000/api/users/${userId}/tags`, {
       headers: {
@@ -44,9 +47,11 @@ export default function Transacao() {
     });
     if (resp.ok) {
       const data = await resp.json();
-      setCategorias(data);
+      setCategorias(data.data || []);
     }
   }
+
+  console.log(categorias);
 
   async function criarCategoria(e) {
     e.preventDefault();

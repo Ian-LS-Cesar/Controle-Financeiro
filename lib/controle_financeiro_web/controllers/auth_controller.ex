@@ -7,7 +7,7 @@ defmodule ControleFinanceiroWeb.AuthController do
         conn
         |> put_status(:ok)
         |> json(%{
-          user: %{email: user.email},
+          user: %{id: user.id, email: user.email},
           token: token
         })
 
