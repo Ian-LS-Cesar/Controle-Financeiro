@@ -12,7 +12,19 @@ defmodule ControleFinanceiroWeb.TransactionJSON do
   Renders a single transaction.
   """
   def show(%{transaction: transaction}) do
-    %{data: data(transaction)}
+    %{
+      id: transaction.id,
+      descricao: transaction.descricao,
+      valor: transaction.valor,
+      tipo: transaction.tipo,
+      data: transaction.data,
+      tags: Enum.map(transaction.tags || [], fn tag ->
+        %{
+          id: tag.id,
+          nome: tag.nome
+        }
+      end)
+    }
   end
 
   defp data(%Transaction{} = transaction) do

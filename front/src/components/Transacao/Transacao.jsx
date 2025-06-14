@@ -160,6 +160,9 @@ export default function Transacao() {
           </button>
         </div>
 
+        <label htmlFor="categorias">
+          Categorias <span style={{fontSize: "0.9em"}}>(Segure Ctrl ou Cmd para selecionar mais de uma)</span>
+        </label>
         <select
           id="categorias"
           multiple
