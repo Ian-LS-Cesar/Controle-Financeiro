@@ -1,7 +1,7 @@
 import React from 'react'
 import {FaUser, FaLock} from 'react-icons/fa';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 import App from '../../App';
 const Login = () => {
@@ -50,10 +50,30 @@ const Login = () => {
             </div>    
             <button>Entrar</button>   
 
+            <div style={{ marginTop: "18px", textAlign: "center" }}>
+              <span>Não tem conta? </span>
+              <Link to="/" style={{ color: "#fff", textDecoration: "underline", cursor: "pointer" }}>
+                Clique Aqui.
+              </Link>
+            </div>
+
         </form>
-      {localStorage.getItem("token") && (
-        <p>Seu token: {localStorage.getItem("token")}</p>
-      )}
+        {localStorage.getItem("token") && (
+          <div style={{
+            background: "#222",
+            color: "#fff",
+            padding: "16px",
+            borderRadius: "8px",
+            marginTop: "24px",
+            wordBreak: "break-all",
+            fontFamily: "monospace",
+            fontSize: "0.95em",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
+          }}>
+            <strong>Seu token JWT:</strong>
+            <div style={{marginTop: "8px"}}>{localStorage.getItem("token")}</div>
+          </div>
+        )}
     </div>
   )
 }

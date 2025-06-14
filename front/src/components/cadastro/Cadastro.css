@@ -1,12 +1,19 @@
-/* Precisa arrumar um jeito de tirar o sombreamento do texot e da borda do login */
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #067d00; /* ou qualquer cor de fundo desejada */
+}
+
 .container {
     width: 450px;
     background-color: rgba(255,255,255, 0.15);
     backdrop-filter: blur(10px);
-    border: 2px sold rgba(rgba(255,255,255, 0.2));
-    padding:40px;   
+    border: 2px solid rgba(255,255,255, 0.2);
+    padding:40px;
     border-radius: 10px;
-
 }
 
 .container h1{
@@ -15,11 +22,33 @@
     color: #fff;
 }
 
-.container .input-field{
+.container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.input-field {
+    width: 100%;
+    max-width: 500px; /* ou o valor que preferir */
+}
+
+.container .input-field {
     position: relative;
     width: 100%;
     height: 50px;
-    margin:30px auto;   
+    margin: 30px 0; /* <-- só vertical */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .input-field input{
@@ -27,11 +56,13 @@
     height: 100%;
     background-color: transparent;
     outline: none;
-    border: rgba(rgba(255,255,255, 0.2));
+    border: 2px solid rgba(255,255,255, 0.2);
     border-radius: 40px;
     font-size:16px;
     color: #fff;
     padding: 20px 45px;
+    box-shadow: none; /* remove sombra */
+    text-shadow: none; /* remove sombra do texto */
 }
 
 .input-field input::placeholder{
@@ -45,8 +76,6 @@
     transform: translateY(-50%);
     font-size:18px;
     color: #fff;
-
-
 }
 
 .container button{
@@ -56,10 +85,21 @@
     border: none;
     outline: none;
     border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0, 0.1);
+    box-shadow: none; /* remove sombra */
     cursor: pointer;
     font-size:16px;
     font-weight: 600;
     text-shadow: none;
+}
 
+.token-box {
+    background: #222;
+    color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 24px;
+    word-break: break-all;
+    font-family: monospace;
+    font-size: 0.95em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }

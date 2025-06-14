@@ -54,11 +54,12 @@ const Cadastro = () => {
         
         <button type="submit">Cadastrar</button> 
 
-         {/* <button  type="submit">Ja tenho cadastro</button>   */}
-          {/* <div >
-            <a onClick={() => <Link to="/Login"/>} href="">Já tenho conta</a>
-
-          </div>  */}
+        <div style={{ marginTop: "18px", textAlign: "center" }}>
+          <span>Já tem conta? </span>
+          <Link to="/login" style={{ color: "#fff", textDecoration: "underline", cursor: "pointer" }}>
+            Clique Aqui.
+          </Link>
+        </div>
       </form>
 
     </div>

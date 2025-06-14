@@ -33,6 +33,7 @@ body {
   flex-direction: column;
   gap: 1.2rem;
   width: 100%;
+  align-items: center; /* centraliza os filhos */
 }
 
 #form-transacao input,
@@ -45,6 +46,12 @@ body {
   font-size: 1rem;
   outline: none;
   transition: background 0.2s;
+  width: 80%; /* centraliza e deixa as caixas menores */
+  max-width: 400px;
+  margin: 0 auto;
+  display: block;
+  box-sizing: border-box;
+  text-align: center; /* centraliza o texto dentro do input */
 }
 
 #form-transacao input:focus,
@@ -55,7 +62,7 @@ body {
 
 #form-transacao button {
   margin-top: 0.5rem;
-  padding: 0.8rem 0;
+  padding: 1rem 2.5rem; /* aumenta o tamanho do botão */
   border-radius: 24px;
   border: none;
   background: #fff;
@@ -65,9 +72,61 @@ body {
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  min-width: 160px;
 }
 
 #form-transacao button:hover {
   background: #4d6347;
   color: #fff;
+}
+
+#form-transacao select[multiple] {
+  min-height: 80px;
+  height: auto;
+  text-align: left;
+  padding: 1rem;
+}
+
+#btn-criar-categoria {
+  margin-left: 10px;
+  padding: 1rem 2rem;
+  min-width: 120px;
+}
+
+@media (max-width: 600px) {
+  #form-transacao input,
+  #form-transacao select {
+    width: 98%;
+    font-size: 0.98rem;
+    padding: 0.7rem 0.7rem;
+  }
+  #form-transacao button {
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+    min-width: 120px;
+  }
+}
+
+.nova-categoria-row {
+  display: flex;
+  width: 80%;
+  max-width: 400px;
+  gap: 12px;
+  margin: 0 auto 10px auto;
+}
+
+.nova-categoria-row input {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.nova-categoria-row #btn-criar-categoria {
+  flex: 0 0 auto;
+  margin-left: 0;
+  padding: 1rem 1.2rem;
+  min-width: 120px;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

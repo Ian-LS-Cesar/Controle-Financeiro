@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Transacao.css";
 
 export default function Transacao() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   console.log("userId do localStorage:", localStorage.getItem("userId"));
@@ -18,7 +19,7 @@ export default function Transacao() {
 
   useEffect(() => {
     if (!token || !userId) {
-      navigate("/"); // redireciona para login se não autenticado
+      navigate("/"); // redireciona para cadastro se não autenticado
       return;
     }
     fetch(`http://localhost:4000/api/users/${userId}`, {
@@ -112,6 +113,79 @@ export default function Transacao() {
 
   return (
     <div className="transacao-container">
+      {/* Menu sanduíche */}
+      <div style={{ width: "100%", display: "flex", justifyContent: "flex-end", position: "relative" }}>
+        <button
+          style={{
+            background: "none",
+            border: "none",
+            fontSize: "2rem",
+            cursor: "pointer",
+            color: "#fff",
+            marginBottom: "10px"
+          }}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Abrir menu"
+        >
+          &#9776;
+        </button>
+        {menuOpen && (
+          <div
+            style={{
+              position: "absolute",
+              right: 0,
+              top: "calc(100% + 8px)",
+              background: "#fff",
+              color: "#4d6347",
+              borderRadius: "8px",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+              zIndex: 10,
+              minWidth: "140px",
+              display: "flex",
+              flexDirection: "column"
+            }}
+          >
+            <button
+              style={{
+                background: "none",
+                border: "none",
+                color: "#4d6347",
+                padding: "12px 20px",
+                width: "100%",
+                textAlign: "left",
+                cursor: "pointer",
+                fontSize: "1rem"
+              }}
+              onClick={() => {
+                setMenuOpen(false);
+                navigate("/historico");
+              }}
+            >
+              Histórico
+            </button>
+            <button
+              style={{
+                background: "none",
+                border: "none",
+                color: "#4d6347",
+                padding: "12px 20px",
+                width: "100%",
+                textAlign: "left",
+                cursor: "pointer",
+                fontSize: "1rem"
+              }}
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("userId");
+                setMenuOpen(false);
+                navigate("/login");
+              }}
+            >
+              Log out
+            </button>
+          </div>
+        )}
+      </div>
       <h1>Transação</h1>
       <form id="form-transacao" onSubmit={cadastrarTransacao}>
         <input
@@ -147,7 +221,7 @@ export default function Transacao() {
           required
         />
 
-        <div style={{ marginBottom: 10 }}>
+        <div className="nova-categoria-row">
           <input
             id="nova-categoria"
             type="text"

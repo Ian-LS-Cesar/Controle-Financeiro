@@ -1,0 +1,75 @@
+body {
+  background: #4d6347;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.historico-container {
+  background: #6d8367;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  min-width: 340px;
+  max-width: 800px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.historico-container h2 {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 1px 1px 2px #3c4c36;
+}
+
+.historico-table {
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-collapse: collapse;
+}
+
+.historico-table th, .historico-table td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+}
+
+.historico-table th {
+  background: #8fa98a;
+  color: #fff;
+  font-weight: 600;
+}
+
+.historico-table tr:nth-child(even) {
+  background: #f4f7f4;
+}
+
+.historico-table tr:nth-child(odd) {
+  background: #e6ede7;
+}
+
+.historico-table td {
+  color: #4d6347;
+  font-size: 1rem;
+}
+
+@media (max-width: 900px) {
+  .historico-container {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+  .historico-table th, .historico-table td {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.95rem;
+  }
+}
