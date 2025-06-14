@@ -47,7 +47,7 @@ export default function Transacao() {
     });
     if (resp.ok) {
       const data = await resp.json();
-      setCategorias(data.data || []);
+      setCategorias(data.tags || []);
     }
   }
 
