@@ -9,7 +9,7 @@ export default function Transacao() {
   const [categorias, setCategorias] = useState([]);
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState("");
-  const [tipo, setTipo] = useState("0");
+  const [tipo, setTipo] = useState("0"); // valor inicial como string "0"
   const [data, setData] = useState("");
   const [novaCategoria, setNovaCategoria] = useState("");
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]);
@@ -74,17 +74,22 @@ export default function Transacao() {
 
   async function cadastrarTransacao(e) {
     e.preventDefault();
+    if (!descricao.trim() || !valor || !data || categoriasSelecionadas.length === 0) {
+      alert("Preencha todos os campos obrigatórios!");
+      return;
+    }
+    const dataFormatada = data.length === 16 ? data + ":00" : data; // "2024-06-14T15:30:00"
     const body = {
       transaction: {
         descricao,
-        valor,
-        tipo,
-        data,
+        valor: Number(valor),
+        tipo: Number(tipo),
+        data: dataFormatada, // agora com datetime
         id_user: Number(userId),
         tags: categoriasSelecionadas.map(Number),
       },
     };
-    const resp = await fetch("http://localhost:4000/api/transacoes", {
+    const resp = await fetch("http://localhost:4000/api/transactions" , {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -92,17 +97,17 @@ export default function Transacao() {
       },
       body: JSON.stringify(body),
     });
-    
-    if (resp.ok) {
-      alert("Transação cadastrada com sucesso!");
-      setDescricao("");
-      setValor("");
-      setTipo("0");
-      setData("");
-      setCategoriasSelecionadas([]);
-    } else {
-      alert("Erro ao cadastrar transação.");
-    }
+    const data2 = await resp.json();
+    if (!resp.ok) {
+     alert("Erro: " + JSON.stringify(data2));
+     return;
+    } 
+    alert("Transação cadastrada com sucesso!");
+    setDescricao("");
+    setValor("");
+    setTipo("0");
+    setData("");
+    setCategoriasSelecionadas([]);
   }
 
   return (
@@ -136,7 +141,7 @@ export default function Transacao() {
         </select>
         <input
           id="data"
-          type="date"
+          type="datetime-local"
           value={data}
           onChange={e => setData(e.target.value)}
           required

@@ -20,11 +20,15 @@ defmodule ControleFinanceiroWeb.TransactionJSON do
       id: transaction.id,
       descricao: transaction.descricao,
       valor: transaction.valor,
-      tipo: transaction.tipo,
+      tipo: tipo_to_string(transaction.tipo),
       data: transaction.data,
       id_user: transaction.id_user,
       data_criacao: transaction.inserted_at,
       data_atualizacao: transaction.updated_at
     }
   end
+
+  defp tipo_to_string(0), do: "Receita"
+  defp tipo_to_string(1), do: "Despesa"
+
 end
