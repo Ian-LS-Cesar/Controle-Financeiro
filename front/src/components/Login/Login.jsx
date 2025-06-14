@@ -1,16 +1,32 @@
 import React from 'react'
 import {FaUser, FaLock} from 'react-icons/fa';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 const Login = () => {
   // a primeira le a segunda altera 
   const[username,setUsername] = useState("");
   const[password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert("enviando dados:" + username + password);
-  }
+    const resp = await fetch("http://localhost:4000/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: username, password }),
+    });
+    if (resp.ok) {
+      const data = await resp.json();
+      
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.user.id);
+      console.log("Login realizado, navegando para transacao");
+      navigate("/transacao");
+    } else {
+      alert("Login inválido");
+    }
+  };
 
   return (
     <div className='container'>  
@@ -26,7 +42,7 @@ const Login = () => {
 
             <div className='input-field'> 
               <input type="password" placeholder='Senha'
-              onChange={(e) => setPassword = (e.target.value)}/>
+              onChange={(e) => setPassword(e.target.value)}/>
               <FaLock className= "icon"/>
             </div>    
 
@@ -39,6 +55,8 @@ const Login = () => {
             </div> */}
 
             <button>Entrar</button>   
+
+            {/*</Link */}
 
         </form>
     </div>
