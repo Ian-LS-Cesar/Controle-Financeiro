@@ -83,7 +83,7 @@ export default function Transacao() {
       transaction: {
         descricao,
         valor: Number(valor),
-        tipo: Number(tipo),
+        tipo,
         data: dataFormatada, // agora com datetime
         id_user: Number(userId),
         tags: categoriasSelecionadas.map(Number),

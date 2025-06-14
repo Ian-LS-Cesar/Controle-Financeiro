@@ -28,7 +28,8 @@ defmodule ControleFinanceiroWeb.TransactionJSON do
     }
   end
 
-  defp tipo_to_string(0), do: "Receita"
-  defp tipo_to_string(1), do: "Despesa"
+  def tipo_to_string(:"0"), do: "Receita"
+  def tipo_to_string(:"1"), do: "Despesa"
+  def tipo_to_string(_), do: "Desconhecido"
 
 end
